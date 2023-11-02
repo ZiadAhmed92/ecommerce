@@ -8,7 +8,7 @@ import { useState } from "react";
 
 
 const ProductDetails = ({img, produces}) => {
-  const[imgSmall , setImgSmall] = useState("http://localhost:1337"+img[0].attributes.url )
+  const[imgSmall , setImgSmall] = useState(produces.img[0] )
 
   return (
     <Box
@@ -25,7 +25,7 @@ const ProductDetails = ({img, produces}) => {
            width={300}
            className="card-img-top-product-detials"
           //  src="img"
-           src={imgSmall!=="http://localhost:1337"+img[0].attributes.url ?`${imgSmall}`:`http://localhost:1337${img[0].attributes.url}`}
+           src={imgSmall!=="" ?`${imgSmall}`:``}
            alt=""
          />
        </div>
@@ -40,7 +40,7 @@ const ProductDetails = ({img, produces}) => {
         </Typography>
         <Typography variant="body1">
           
-          {produces.description}
+          {produces.desc}
         </Typography>
 
         <Stack
@@ -51,17 +51,17 @@ const ProductDetails = ({img, produces}) => {
           my={2}
         >
          
-            {img.map((item, index) => {
+            {produces.img.map((item, index) => {
               return (
                 <div key={index} style={{overflow:"hidden"}}>
                   <img
                   key={index}
-                  onClick={()=>setImgSmall("http://localhost:1337"+item.attributes.url)}
+                  onClick={()=>setImgSmall(item)}
                   className="card-img-top-product-detials"
                     style={{ borderRadius: 3 }}
                     height={100}
                     width={90}
-                    src={"http://localhost:1337"+item.attributes.url}
+                    src={item}
                     alt=""
                   />
                </div>

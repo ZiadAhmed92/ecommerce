@@ -12,27 +12,90 @@ import {
 import AddShoppingCartOutlinedIcon from "@mui/icons-material/AddShoppingCartOutlined";
 import ProductDetails from "./ProductDetails";
 import { Close } from "@mui/icons-material";
-import axios from "axios";
+
 const Main = () => {
-  const [produce, setProduce] = useState();
+  const [produce, setProduce] = useState([
+    {
+      img: [
+        "src/Components/Main/images/1/final.png",
+        "src/Components/Main/images/1/images.jpg",
+      ],
+      category: "Men",
+      name: "Jacket",
+      price: "29",
+      desc: "2022 High Quality Custom Design Men Jacket Winter Fleece Jackets Warm Thicken Outerwear Men's Jackets",
+      rating: 4,
+    },
+    {
+      img: [
+        "src/Components/Main/images/2/2.jpg",
+        "src/Components/Main/images/2/3.jpg",
+        "src/Components/Main/images/2/final.jpg",
+      ],
+      category: "Men",
+      name: "Glasses",
+      price: "12",
+      desc: "Ready Stock Goods Ergonomic Design Fashion Metal Cheap Wholesale Sunglasses Women Men Sun Glasses",
+      rating: 3,
+    },
+    {
+      img: [
+        "src/Components/Main/images/3/1.jpg",
+        "src/Components/Main/images/3/2.jpg",
+        "src/Components/Main/images/3/4.jpg",
+        "./images/3/final.jpg",
+      ],
+      category: "Women",
+      name: "Bag",
+      price: "10",
+      desc: "Custom XP2404 Women Chain Handbag New Underarm Bag Fashion Simple Designer Ringer Ladies",
+      rating: 2,
+    },
+    {
+      img: [
+        "src/Components/Main/images/4/final.jpg",
+        "src/Components/Main/images/4/3.jpg",
+        "src/Components/Main/images/4/4.jpg",
+        "src/Components/Main/images/4/final.jpg",
+      ],
+      category: "Men",
+      name: "Wristwatch",
+      price: "15",
+      desc: "RAYMONS Wholesale Amazon Hot Model Business Men's Wrist Watch Waterproof Gold Men",
+      rating: 4,
+    },
+    {
+      img: [
+        "src/Components/Main/images/5/1 (5).jpg",
+        "src/Components/Main/images/5/1 (6).jpg",
+        "src/Components/Main/images/5/100.jpg",
+      ],
+      category: "Men",
+      name: "JacketMen",
+      price: "29",
+      desc: "2022 Hot Selling Winter Warm Windproof Hooded Coat Shiny Puffer Jacket Outdoor Thick",
+      rating: 5,
+    },
+    {
+      img: [
+        "src/Components/Main/images/6/1.jpg",
+        "src/Components/Main/images/6/2.jpg",
+      ],
+      category: "Women",
+      name: "RingWoman",
+      price: "150",
+      desc: "Goldstones New Arrival S925 Jewelry Rings Fancy Cut D VVS Moissanite Ring Eternity Band Rings",
+      rating: 5,
+    },
+  ]);
   const [produces, setProducs] = useState();
   const [url, setUrl] = useState(`?populate=*`);
 
-  async function data(url) {
-    let {
-      data: { data }
-    } = await axios.get(`http://localhost:1337/api/produces${url}`);
-    setProduce(data);
-  }
-
-  useEffect(() => {
-    data(url);
-  }, [url]);
   let theme = useTheme();
   const [active, setActive] = useState("All");
   const [img, setImg] = useState([]);
   const [open, setOpen] = useState(false);
-  // http://localhost:1337/api/produces?populate=*&filters[category][$eq]=men
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -43,7 +106,7 @@ const Main = () => {
   return (
     <div className="row">
       <div className="col-md-6 main-text">
-        <h4 >Selected Products</h4>
+        <h4>Selected Products</h4>
         <p className="h6">
           All our new arrivals in a exclusive brand selection
         </p>
@@ -51,7 +114,6 @@ const Main = () => {
       <div className="col-md-6 main-btn d-flex">
         <button
           onClick={() => {
-            
             setUrl(`?populate=*`);
             setActive("All");
           }}
@@ -62,7 +124,10 @@ const Main = () => {
         </button>
 
         <button
-          onClick={() => {setActive("MEN");setUrl(`?populate=*&filters[category][$eq]=men`) }}
+          onClick={() => {
+            setActive("MEN");
+            setUrl(`?populate=*&filters[category][$eq]=men`);
+          }}
           style={{ color: theme.palette.text.primary }}
           className={`myButton ${active === "MEN" ? " active" : ""}`}
         >
@@ -71,7 +136,6 @@ const Main = () => {
 
         <button
           onClick={() => {
-           
             setUrl(`?populate=*&filters[category][$eq]=women`);
             setActive("Women");
           }}
@@ -81,347 +145,71 @@ const Main = () => {
           Women category
         </button>
       </div>
-      {
-        // @ts-ignore
-        produce?.map((item, i) => {
-          return (
-            <div key={i} className="col-md-4 main-content ">
-              <div>
-                <div
-                  className="card"
-                  style={{
-                    overflow: "hidden",
-                    width: "18rem",
-                    background:
-                      theme.palette.mode === "dark" ? "#000 " : "#fff ",
-                    color: theme.palette.mode === "dark" ? "#EEE " : "#000 ",
-                  }}
-                >
-                  <div style={{ overflow: "hidden" }}>
-                    <img
-                      src={
-                        "http://localhost:1337" +
-                        item.attributes.image.data[0].attributes.url
-                      }
-                      className="card-img-top"
-                      alt="..."
-                    />
+      {produce.map((item, i) => {
+        console.log(item.img);
+        return (
+          <div key={i} className="col-md-4 main-content ">
+            <div>
+              <div
+                className="card"
+                style={{
+                  overflow: "hidden",
+                  width: "18rem",
+                  background: theme.palette.mode === "dark" ? "#000 " : "#fff ",
+                  color: theme.palette.mode === "dark" ? "#EEE " : "#000 ",
+                }}
+              >
+                <div style={{ overflow: "hidden" }}>
+                  <img src={item.img[0]} className="card-img-top" alt="..." />
+                </div>
+                <div className="card-body">
+                  <div className="d-flex justify-content-between">
+                    <h5 className="card-title">{item.name}</h5>
+                    <p>{item.price}$</p>
                   </div>
-                  <div className="card-body">
-                    <div className="d-flex justify-content-between">
-                      <h5 className="card-title">{item.attributes.title}</h5>
-                      <p>{item.attributes.price}$</p>
-                    </div>
-                    <p className="card-text ">{item.attributes.description}</p>
-                    <div className="d-flex justify-content-between">
-                      <Box
-                        sx={{
-                          ":hover": { color: "blue", cursor: "pointer" },
-                          transition: "0.2s",
-                          alignItems: "center",
+                  <p className="card-text ">{item.desc}</p>
+                  <div className="d-flex justify-content-between">
+                    <Box
+                      sx={{
+                        ":hover": { color: "blue", cursor: "pointer" },
+                        transition: "0.2s",
+                        alignItems: "center",
+                      }}
+                    >
+                      <div
+                        onClick={() => {
+                          setImg(item.img);
+                          // @ts-ignore
+                          setProducs(item);
                         }}
                       >
-                        <div
-                          onClick={() => {
-                            setImg(item.attributes.image.data);
-                            setProducs(item.attributes);
-                          }}
+                        <Button
+                          sx={{ fontSize: "0.6em" }}
+                          variant="outlined"
+                          onClick={handleClickOpen}
                         >
-                          <Button
-                            sx={{ fontSize: "0.6em" }}
-                            variant="outlined"
-                            onClick={handleClickOpen}
-                          >
-                            <AddShoppingCartOutlinedIcon
-                              sx={{ mr: 1 }}
-                              fontSize="small"
-                            />{" "}
-                            Add To Cart
-                          </Button>
-                        </div>
-                      </Box>
-                      <Rating
-                        precision={0.1}
-                        name="read-only"
-                        value={item.attributes.rating}
-                        readOnly
-                      />
-                    </div>
+                          <AddShoppingCartOutlinedIcon
+                            sx={{ mr: 1 }}
+                            fontSize="small"
+                          />{" "}
+                          Add To Cart
+                        </Button>
+                      </div>
+                    </Box>
+                    <Rating
+                      precision={0.1}
+                      name="read-only"
+                      value={item.rating}
+                      readOnly
+                    />
                   </div>
                 </div>
               </div>
             </div>
-          );
-        })
-      }
+          </div>
+        );
+      })}
 
-      {/* <div className="col-md-4 main-content ">
-        <div>
-          <div
-            className="card"
-            style={{
-              overflow: "hidden",
-              width: "18rem",
-              background: theme.palette.mode === "dark" ? "#000 " : "#fff ",
-              color: theme.palette.mode === "dark" ? "#EEE " : "#000 ",
-            }}
-          >
-            <div style={{ overflow: "hidden" }}>
-              <img
-                src="src/Components/Main/images/2.jpg"
-                className="card-img-top"
-                alt="..."
-              />
-            </div>
-            <div className="card-body">
-              <div className="d-flex justify-content-between">
-                <h5 className="card-title">Card title</h5>
-                <p>12$</p>
-              </div>
-              <p className="card-text ">
-                Some quick example text to build on the card title and make up
-                the bulk of the card's content.
-              </p>
-              <div className="d-flex justify-content-between">
-                <Box
-                  sx={{
-                    ":hover": { color: "blue", cursor: "pointer" },
-                    transition: "0.2s",
-                    alignItems: "center",
-                  }}
-                >
-                  <Button
-                    sx={{ fontSize: "0.6em" }}
-                    variant="outlined"
-                    onClick={handleClickOpen}
-                  >
-                    <AddShoppingCartOutlinedIcon
-                      sx={{ mr: 1 }}
-                      fontSize="small"
-                    />{" "}
-                    Add To Cart
-                  </Button>
-                </Box>
-                <Rating precision={0.1} name="read-only" value={3} readOnly />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="col-md-4 main-content ">
-        <div>
-          <div
-            className="card"
-            style={{
-              overflow: "hidden",
-              width: "18rem",
-              background: theme.palette.mode === "dark" ? "#000 " : "#fff ",
-              color: theme.palette.mode === "dark" ? "#EEE " : "#000 ",
-            }}
-          >
-            <div style={{ overflow: "hidden" }}>
-              <img
-                src="src/Components/Main/images/3.jpg"
-                className="card-img-top"
-                alt="..."
-              />
-            </div>
-            <div className="card-body">
-              <div className="d-flex justify-content-between">
-                <h5 className="card-title">Card title</h5>
-                <p>7$</p>
-              </div>
-              <p className="card-text ">
-                Some quick example text to build on the card title and make up
-                the bulk of the card's content.
-              </p>
-              <div className="d-flex justify-content-between">
-                <Box
-                  sx={{
-                    ":hover": { color: "blue", cursor: "pointer" },
-                    transition: "0.2s",
-                    alignItems: "center",
-                  }}
-                >
-                  <Button
-                    sx={{ fontSize: "0.6em" }}
-                    variant="outlined"
-                    onClick={handleClickOpen}
-                  >
-                    <AddShoppingCartOutlinedIcon
-                      sx={{ mr: 1 }}
-                      fontSize="small"
-                    />{" "}
-                    Add To Cart
-                  </Button>
-                </Box>
-                <Rating precision={0.1} name="read-only" value={2} readOnly />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="col-md-4 main-content ">
-        <div>
-          <div
-            className="card"
-            style={{
-              overflow: "hidden",
-              width: "18rem",
-              background: theme.palette.mode === "dark" ? "#000 " : "#fff ",
-              color: theme.palette.mode === "dark" ? "#EEE " : "#000 ",
-            }}
-          >
-            <div style={{ overflow: "hidden" }}>
-              <img
-                src="src/Components/Main/images/4.jpg"
-                className="card-img-top"
-                alt="..."
-              />
-            </div>
-            <div className="card-body">
-              <div className="d-flex justify-content-between">
-                <h5 className="card-title">Card title</h5>
-                <p>20$</p>
-              </div>
-              <p className="card-text ">
-                Some quick example text to build on the card title and make up
-                the bulk of the card's content.
-              </p>
-              <div className="d-flex justify-content-between">
-                <Box
-                  sx={{
-                    ":hover": { color: "blue", cursor: "pointer" },
-                    transition: "0.2s",
-                    alignItems: "center",
-                  }}
-                >
-                  <Button
-                    sx={{ fontSize: "0.6em" }}
-                    variant="outlined"
-                    onClick={handleClickOpen}
-                  >
-                    <AddShoppingCartOutlinedIcon
-                      sx={{ mr: 1 }}
-                      fontSize="small"
-                    />{" "}
-                    Add To Cart
-                  </Button>
-                </Box>
-                <Rating precision={0.1} name="read-only" value={5} readOnly />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="col-md-4 main-content ">
-        <div>
-          <div
-            className="card"
-            style={{
-              overflow: "hidden",
-              width: "18rem",
-              background: theme.palette.mode === "dark" ? "#000 " : "#fff ",
-              color: theme.palette.mode === "dark" ? "#EEE " : "#000 ",
-            }}
-          >
-            <div style={{ overflow: "hidden" }}>
-              <img
-                src="src/Components/Main/images/5.jpg"
-                className="card-img-top"
-                alt="..."
-              />
-            </div>
-            <div className="card-body">
-              <div className="d-flex justify-content-between">
-                <h5 className="card-title">Card title</h5>
-                <p>15$</p>
-              </div>
-              <p className="card-text ">
-                Some quick example text to build on the card title and make up
-                the bulk of the card's content.
-              </p>
-              <div className="d-flex justify-content-between">
-                <Box
-                  sx={{
-                    ":hover": { color: "blue", cursor: "pointer" },
-                    transition: "0.2s",
-                    alignItems: "center",
-                  }}
-                >
-                  <Button
-                    sx={{ fontSize: "0.6em" }}
-                    variant="outlined"
-                    onClick={handleClickOpen}
-                  >
-                    <AddShoppingCartOutlinedIcon
-                      sx={{ mr: 1 }}
-                      fontSize="small"
-                    />{" "}
-                    Add To Cart
-                  </Button>
-                </Box>
-                <Rating precision={0.1} name="read-only" value={4} readOnly />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="col-md-4 main-content ">
-        <div>
-          <div
-            className="card"
-            style={{
-              overflow: "hidden",
-              width: "18rem",
-              background: theme.palette.mode === "dark" ? "#000 " : "#fff ",
-              color: theme.palette.mode === "dark" ? "#EEE " : "#000 ",
-            }}
-          >
-            <div style={{ overflow: "hidden" }}>
-              <img
-                src="src/Components/Main/images/6.jpg"
-                className="card-img-top"
-                alt="..."
-              />
-            </div>
-            <div className="card-body">
-              <div className="d-flex justify-content-between">
-                <h5 className="card-title">Card title</h5>
-                <p>
-                  <span style={{ textDecoration: "line-through" }}>20$</span> 5$
-                </p>
-              </div>
-              <p className="card-text ">
-                Some quick example text to build on the card title and make up
-                the bulk of the card's content.
-              </p>
-              <div className="d-flex justify-content-between">
-                <Box
-                  sx={{
-                    ":hover": { color: "blue", cursor: "pointer" },
-                    transition: "0.2s",
-                    alignItems: "center",
-                  }}
-                >
-                  <Button
-                    sx={{ fontSize: "0.6em" }}
-                    variant="outlined"
-                    onClick={handleClickOpen}
-                  >
-                    <AddShoppingCartOutlinedIcon
-                      sx={{ mr: 1 }}
-                      fontSize="small"
-                    />{" "}
-                    Add To Cart
-                  </Button>
-                </Box>
-                <Rating precision={0.1} name="read-only" value={4} readOnly />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> */}
       {/* dialog */}
 
       <Dialog
