@@ -14,26 +14,26 @@ import ProductDetails from "./ProductDetails";
 import { Close } from "@mui/icons-material";
 import axios from "axios";
 const Main = () => {
-  const[produce , setProduce] = useState();
-  const[produces , setProducs] = useState();
-  async function data() {
-    let { data:{data} } = await axios.get(
-      "http://localhost:1337/api/produces?populate=*"
-    );
-    setProduce(data)
-    
+  const [produce, setProduce] = useState();
+  const [produces, setProducs] = useState();
+  const [url, setUrl] = useState(`?populate=*`);
+
+  async function data(url) {
+    let {
+      data: { data }
+    } = await axios.get(`http://localhost:1337/api/produces${url}`);
+    setProduce(data);
   }
 
   useEffect(() => {
-    data();
-  }, []);
+    data(url);
+  }, [url]);
   let theme = useTheme();
   const [active, setActive] = useState("All");
   const [img, setImg] = useState([]);
   const [open, setOpen] = useState(false);
-  // http://localhost:1337/api/produces?populate=*
+  // http://localhost:1337/api/produces?populate=*&filters[category][$eq]=men
   const handleClickOpen = () => {
-   
     setOpen(true);
   };
 
@@ -43,14 +43,18 @@ const Main = () => {
   return (
     <div className="row">
       <div className="col-md-6 main-text">
-        <h4>Selected Products</h4>
+        <h4 >Selected Products</h4>
         <p className="h6">
           All our new arrivals in a exclusive brand selection
         </p>
       </div>
       <div className="col-md-6 main-btn d-flex">
         <button
-          onClick={() => setActive("All")}
+          onClick={() => {
+            
+            setUrl(`?populate=*`);
+            setActive("All");
+          }}
           style={{ color: theme.palette.text.primary }}
           className={`myButton ${active === "All" ? " active" : ""}`}
         >
@@ -58,7 +62,7 @@ const Main = () => {
         </button>
 
         <button
-          onClick={() => setActive("MEN")}
+          onClick={() => {setActive("MEN");setUrl(`?populate=*&filters[category][$eq]=men`) }}
           style={{ color: theme.palette.text.primary }}
           className={`myButton ${active === "MEN" ? " active" : ""}`}
         >
@@ -66,73 +70,91 @@ const Main = () => {
         </button>
 
         <button
-          onClick={() => setActive("Women")}
+          onClick={() => {
+           
+            setUrl(`?populate=*&filters[category][$eq]=women`);
+            setActive("Women");
+          }}
           style={{ color: theme.palette.text.primary }}
           className={`myButton ${active === "Women" ? " active" : ""}`}
         >
           Women category
         </button>
       </div>
-       {
-// @ts-ignore
-       produce?.map((item ,i)=>{
-        return(
-          <div key={i} className="col-md-4 main-content ">
-          <div>
-            <div
-              className="card"
-              style={{
-                overflow: "hidden",
-                width: "18rem",
-                background: theme.palette.mode === "dark" ? "#000 " : "#fff ",
-                color: theme.palette.mode === "dark" ? "#EEE " : "#000 ",
-              }}
-            >
-              <div style={{ overflow: "hidden" }}>
-                <img
-                  src={"http://localhost:1337"+item.attributes.image.data[0].attributes.url}
-                  className="card-img-top"
-                  alt="..."
-                />
-              </div>
-              <div className="card-body">
-                <div className="d-flex justify-content-between">
-                  <h5 className="card-title">{item.attributes.title}</h5>
-                  <p>{item.attributes.price}$</p>
-                </div>
-                <p className="card-text ">
-                  {item.attributes.description}
-                </p>
-                <div className="d-flex justify-content-between">
-                  <Box
-                    sx={{
-                      ":hover": { color: "blue", cursor: "pointer" },
-                      transition: "0.2s",
-                      alignItems: "center",
-                    }}
-                  >
-                    <div onClick={ ()=>{setImg(item.attributes.image.data);setProducs(item.attributes)}}>
-                    <Button
-                      sx={{ fontSize: "0.6em" }}
-                      variant="outlined"
-                      onClick={handleClickOpen}
-                    >
-                      <AddShoppingCartOutlinedIcon
-                        sx={{ mr: 1 }}
-                        fontSize="small"
-                      />{" "}
-                      Add To Cart
-                    </Button></div>
-                  </Box>
-                  <Rating precision={0.1} name="read-only" value={item.attributes.rating} readOnly />
+      {
+        // @ts-ignore
+        produce?.map((item, i) => {
+          return (
+            <div key={i} className="col-md-4 main-content ">
+              <div>
+                <div
+                  className="card"
+                  style={{
+                    overflow: "hidden",
+                    width: "18rem",
+                    background:
+                      theme.palette.mode === "dark" ? "#000 " : "#fff ",
+                    color: theme.palette.mode === "dark" ? "#EEE " : "#000 ",
+                  }}
+                >
+                  <div style={{ overflow: "hidden" }}>
+                    <img
+                      src={
+                        "http://localhost:1337" +
+                        item.attributes.image.data[0].attributes.url
+                      }
+                      className="card-img-top"
+                      alt="..."
+                    />
+                  </div>
+                  <div className="card-body">
+                    <div className="d-flex justify-content-between">
+                      <h5 className="card-title">{item.attributes.title}</h5>
+                      <p>{item.attributes.price}$</p>
+                    </div>
+                    <p className="card-text ">{item.attributes.description}</p>
+                    <div className="d-flex justify-content-between">
+                      <Box
+                        sx={{
+                          ":hover": { color: "blue", cursor: "pointer" },
+                          transition: "0.2s",
+                          alignItems: "center",
+                        }}
+                      >
+                        <div
+                          onClick={() => {
+                            setImg(item.attributes.image.data);
+                            setProducs(item.attributes);
+                          }}
+                        >
+                          <Button
+                            sx={{ fontSize: "0.6em" }}
+                            variant="outlined"
+                            onClick={handleClickOpen}
+                          >
+                            <AddShoppingCartOutlinedIcon
+                              sx={{ mr: 1 }}
+                              fontSize="small"
+                            />{" "}
+                            Add To Cart
+                          </Button>
+                        </div>
+                      </Box>
+                      <Rating
+                        precision={0.1}
+                        name="read-only"
+                        value={item.attributes.rating}
+                        readOnly
+                      />
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-        )
-      })} 
-    
+          );
+        })
+      }
+
       {/* <div className="col-md-4 main-content ">
         <div>
           <div
@@ -413,7 +435,7 @@ const Main = () => {
           sx={{
             ":hover": { color: "red", rotate: "180deg", transition: "0.3s" },
             position: "absolute",
-            top: 0,
+            top: 10,
             right: 10,
           }}
           onClick={handleClose}
@@ -421,10 +443,11 @@ const Main = () => {
           <Close />
         </IconButton>
 
-        <ProductDetails 
-// @ts-ignore
-produces={produces}
-        img={img} />
+        <ProductDetails
+          // @ts-ignore
+          produces={produces}
+          img={img}
+        />
       </Dialog>
     </div>
   );
