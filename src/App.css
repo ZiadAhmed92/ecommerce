@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,400;0,600;1,300;1,900&display=swap');
+*{
+    font-family: 'Bitter', serif !important;
+ 
+  
+}
+
+.bg-danger{
+    background:red;
+}
+.border{
+    border: 1px solid red;
+}
+/* -------------------- header 2 ----------------------*/
+@media only screen and (max-width: 500px) {
+    .header2{
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+.header2 .icon1{
+    display: none;
+}
+.header2 .icon2{
+    width: 100%;
+}
+.header2 .icon3{
+    width: 100%;
+    justify-content: center;
+     margin: 10px 0;}   
+  }
+
+
+
+  /* header3 */
+  @media only screen and (max-width: 500px) {
+ .MuiPaper-root  .MuiBox-root{
+    /* Drawer */
+        width: 350px !important;
+    }
+}
+
+
