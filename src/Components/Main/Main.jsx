@@ -12,13 +12,29 @@ import {
 import AddShoppingCartOutlinedIcon from "@mui/icons-material/AddShoppingCartOutlined";
 import ProductDetails from "./ProductDetails";
 import { Close } from "@mui/icons-material";
-
+import img1 from "../../img/1/final.png"
+import img12 from "../../img/1/images.jpg"
+import img2 from "../../img/2/2.jpg"
+import img22 from "../../img/2/3.jpg"
+import img23 from "../../img/2/final.jpg"
+import img3 from "../../img/3/1.jpg"
+import img32 from "../../img/3/2.jpg"
+import img33 from "../../img/3/4.jpg"
+import img34 from "../../img/3/final.jpg"
+import img4 from "../../img/4/3.jpg"
+import img42 from "../../img/4/4.jpg"
+import img43 from "../../img/4/final.jpg"
+import img5 from "../../img/5/1 (5).jpg"
+import img52 from "../../img/5/1 (6).jpg"
+import img53 from "../../img/5/100.jpg"
+import img6 from "../../img/6/1.jpg"
+import img62 from "../../img/6/2.jpg"
 const Main = () => {
   const [produce, setProduce] = useState([
     {
       img: [
-        "src/Components/Main/images/1/final.png",
-        "src/Components/Main/images/1/images.jpg",
+        img1,
+        img12
       ],
       category: "Men",
       name: "Jacket",
@@ -28,9 +44,9 @@ const Main = () => {
     },
     {
       img: [
-        "src/Components/Main/images/2/2.jpg",
-        "src/Components/Main/images/2/3.jpg",
-        "src/Components/Main/images/2/final.jpg",
+        img2,
+        img22,
+        img23,
       ],
       category: "Men",
       name: "Glasses",
@@ -40,10 +56,10 @@ const Main = () => {
     },
     {
       img: [
-        "src/Components/Main/images/3/1.jpg",
-        "src/Components/Main/images/3/2.jpg",
-        "src/Components/Main/images/3/4.jpg",
-        "./images/3/final.jpg",
+        img3,
+        img32,
+        img33,
+        img34,
       ],
       category: "Women",
       name: "Bag",
@@ -53,10 +69,10 @@ const Main = () => {
     },
     {
       img: [
-        "src/Components/Main/images/4/final.jpg",
-        "src/Components/Main/images/4/3.jpg",
-        "src/Components/Main/images/4/4.jpg",
-        "src/Components/Main/images/4/final.jpg",
+        img4,
+        img42,
+        img43
+        
       ],
       category: "Men",
       name: "Wristwatch",
@@ -66,9 +82,9 @@ const Main = () => {
     },
     {
       img: [
-        "src/Components/Main/images/5/1 (5).jpg",
-        "src/Components/Main/images/5/1 (6).jpg",
-        "src/Components/Main/images/5/100.jpg",
+        img5,
+        img52,
+        img53,
       ],
       category: "Men",
       name: "JacketMen",
@@ -78,8 +94,8 @@ const Main = () => {
     },
     {
       img: [
-        "src/Components/Main/images/6/1.jpg",
-        "src/Components/Main/images/6/2.jpg",
+        img6,
+        img62,
       ],
       category: "Women",
       name: "RingWoman",
