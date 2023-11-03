@@ -1,10 +1,12 @@
 import { useTheme } from "@emotion/react";
 import "./Main.css";
+// @ts-ignore
 import { useEffect, useState } from "react";
 import {
   Box,
   Button,
   Dialog,
+  // @ts-ignore
   DialogActions,
   IconButton,
   Rating,
@@ -12,30 +14,44 @@ import {
 import AddShoppingCartOutlinedIcon from "@mui/icons-material/AddShoppingCartOutlined";
 import ProductDetails from "./ProductDetails";
 import { Close } from "@mui/icons-material";
-import img1 from "../../img/1/final.png"
-import img12 from "../../img/1/images.jpg"
-import img2 from "../../img/2/2.jpg"
-import img22 from "../../img/2/3.jpg"
-import img23 from "../../img/2/final.jpg"
-import img3 from "../../img/3/1.jpg"
-import img32 from "../../img/3/2.jpg"
-import img33 from "../../img/3/4.jpg"
-import img34 from "../../img/3/final.jpg"
-import img4 from "../../img/4/3.jpg"
-import img42 from "../../img/4/4.jpg"
-import img43 from "../../img/4/final.jpg"
-import img5 from "../../img/5/1 (5).jpg"
-import img52 from "../../img/5/1 (6).jpg"
-import img53 from "../../img/5/100.jpg"
-import img6 from "../../img/6/1.jpg"
-import img62 from "../../img/6/2.jpg"
+// @ts-ignore
+import img1 from "../../img/1/final.png";
+// @ts-ignore
+import img12 from "../../img/1/images.jpg";
+// @ts-ignore
+import img2 from "../../img/2/2.jpg";
+// @ts-ignore
+import img22 from "../../img/2/3.jpg";
+// @ts-ignore
+import img23 from "../../img/2/final.jpg";
+// @ts-ignore
+import img3 from "../../img/3/1.jpg";
+// @ts-ignore
+import img32 from "../../img/3/2.jpg";
+// @ts-ignore
+import img33 from "../../img/3/4.jpg";
+// @ts-ignore
+import img34 from "../../img/3/final.jpg";
+// @ts-ignore
+import img4 from "../../img/4/3.jpg";
+// @ts-ignore
+import img42 from "../../img/4/4.jpg";
+// @ts-ignore
+import img43 from "../../img/4/final.jpg";
+// @ts-ignore
+import img5 from "../../img/5/1 (5).jpg";
+// @ts-ignore
+import img52 from "../../img/5/1 (6).jpg";
+// @ts-ignore
+import img53 from "../../img/5/100.jpg";
+// @ts-ignore
+import img6 from "../../img/6/1.jpg";
+// @ts-ignore
+import img62 from "../../img/6/2.jpg";
 const Main = () => {
-  const [produce, setProduce] = useState([
+  let AllProduce = [
     {
-      img: [
-        img1,
-        img12
-      ],
+      img: [img1, img12],
       category: "Men",
       name: "Jacket",
       price: "29",
@@ -43,11 +59,7 @@ const Main = () => {
       rating: 4,
     },
     {
-      img: [
-        img2,
-        img22,
-        img23,
-      ],
+      img: [img2, img22, img23],
       category: "Men",
       name: "Glasses",
       price: "12",
@@ -55,12 +67,7 @@ const Main = () => {
       rating: 3,
     },
     {
-      img: [
-        img3,
-        img32,
-        img33,
-        img34,
-      ],
+      img: [img3, img32, img33, img34],
       category: "Women",
       name: "Bag",
       price: "10",
@@ -68,12 +75,7 @@ const Main = () => {
       rating: 2,
     },
     {
-      img: [
-        img4,
-        img42,
-        img43
-        
-      ],
+      img: [img43, img42, img4],
       category: "Men",
       name: "Wristwatch",
       price: "15",
@@ -81,11 +83,7 @@ const Main = () => {
       rating: 4,
     },
     {
-      img: [
-        img5,
-        img52,
-        img53,
-      ],
+      img: [img5, img52, img53],
       category: "Men",
       name: "JacketMen",
       price: "29",
@@ -93,19 +91,26 @@ const Main = () => {
       rating: 5,
     },
     {
-      img: [
-        img6,
-        img62,
-      ],
+      img: [img6, img62],
       category: "Women",
       name: "RingWoman",
       price: "150",
       desc: "Goldstones New Arrival S925 Jewelry Rings Fancy Cut D VVS Moissanite Ring Eternity Band Rings",
       rating: 5,
     },
-  ]);
+  ];
+  // @ts-ignore
+  const [produce, setProduce] = useState(AllProduce);
+  function filterProduce(cate) {
+    let prt = AllProduce.filter((item) => item.category === cate);
+
+    setProduce(prt);
+  }
+  // useEffect(()=>{
+  //   filterProduce(category)
+  // },[])
   const [produces, setProducs] = useState();
-  const [url, setUrl] = useState(`?populate=*`);
+  // @ts-ignore
 
   let theme = useTheme();
   const [active, setActive] = useState("All");
@@ -130,7 +135,8 @@ const Main = () => {
       <div className="col-md-6 main-btn d-flex">
         <button
           onClick={() => {
-            setUrl(`?populate=*`);
+            setProduce(AllProduce);
+
             setActive("All");
           }}
           style={{ color: theme.palette.text.primary }}
@@ -142,7 +148,7 @@ const Main = () => {
         <button
           onClick={() => {
             setActive("MEN");
-            setUrl(`?populate=*&filters[category][$eq]=men`);
+            filterProduce("Men");
           }}
           style={{ color: theme.palette.text.primary }}
           className={`myButton ${active === "MEN" ? " active" : ""}`}
@@ -152,7 +158,7 @@ const Main = () => {
 
         <button
           onClick={() => {
-            setUrl(`?populate=*&filters[category][$eq]=women`);
+            filterProduce("Women");
             setActive("Women");
           }}
           style={{ color: theme.palette.text.primary }}
@@ -162,7 +168,6 @@ const Main = () => {
         </button>
       </div>
       {produce.map((item, i) => {
-        console.log(item.img);
         return (
           <div key={i} className="col-md-4 main-content ">
             <div>
