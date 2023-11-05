@@ -1,9 +1,12 @@
-import { ExpandMore, ShoppingCartOutlined } from "@mui/icons-material";
+import { Close, ExpandMore, ShoppingCartOutlined } from "@mui/icons-material";
 import {
   Badge,
+  Button,
+  Box,
   Container,
   IconButton,
   InputBase,
+  Rating,
   Stack,
   Typography,
   useTheme,
@@ -18,7 +21,8 @@ import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
-
+import AddShoppingCartOutlinedIcon from "@mui/icons-material/AddShoppingCartOutlined";
+import DeleteSharpIcon from '@mui/icons-material/DeleteSharp';
 const Search = styled("div")(({ theme }) => ({
   flexGrow: 0.4,
   position: "relative",
@@ -72,7 +76,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 
 const options = ["All Categories", "CAR", "Clothes", "Electronics"];
 
-const Header2 = () => {
+const Header2 = ({ favourites, removeFavouritMovie }) => {
   // ------------------Menu-------------------------
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -91,100 +95,188 @@ const Header2 = () => {
   };
 
   const theme = useTheme();
+  // @ts-ignore
+
+  const [fav, setFav] = useState(false);
 
   return (
-    <Container
-      className="header2"
-      sx={{ my: 3, display: "flex", justifyContent: "space-between" }}
-    >
-      <Stack className="icon1" alignItems={"center"}>
-        <ShoppingCartOutlined />
-        <Typography variant="body2">E-commerce</Typography>
-      </Stack>
+    <>
+      {fav && favourites.length !==0 ? (
+        <div className="favourit ">
+          {" "}
+         
+          <IconButton
+          sx={{
+            ":hover": { color: "red", rotate: "180deg", transition: "0.3s" },
+            position: "absolute",
+            
+            color:"#EEE",
+            top: 10,
+            right: 10,
+          }}
+          onClick={()=>setFav(!fav)}
+        >
+          <Close />
+        </IconButton>
+      
+          <div className="container">
+            <div className="row">
+              {favourites.map((item, i) => {
+                return (
+                  <div key={i} className="col-md-4 main-content ">
+                    <div>
+                      <div
+                        className="card"
+                        style={{
+                          overflow: "hidden",
+                          width: "18rem",
+                          background:
+                            theme.palette.mode === "dark" ? "#000 " : "#fff ",
+                          color:
+                            theme.palette.mode === "dark" ? "#EEE " : "#000 ",
+                        }}
+                      >
+                        <div style={{ overflow: "hidden" }}>
+                          <img
+                            src={item.img[0]}
+                            className="card-img-top w-100"
+                            alt="..."
+                          />
+                        </div>
+                        <div className="card-body ">
+                          <div className="d-flex justify-content-between mb-2">
+                            <div className="d-flex  align-items-center">
+                              <h5 className="card-title  me-4">{item.name}</h5>
+                              <p className="card-title p-0">{item.price}$</p>
+                            </div>
 
-      <Search className="icon2"
-        sx={{
-          display: "flex",
-          borderRadius: "22px",
-          justifyContent: "space-between",
-        }}
-      >
-        <SearchIconWrapper>
-          <SearchIcon />
-        </SearchIconWrapper>
-        <StyledInputBase
-          placeholder="Search…"
-          inputProps={{ "aria-label": "search" }}
-        />
+                            <div onClick={() => removeFavouritMovie(item)}>
+                              <DeleteSharpIcon
+                                sx={{":hover":{color:"red",opacity:1} ,transition:"0.2s",fontSize:"1.4em",mr: 1,color:"red",opacity:"0.8", cursor: "pointer" }}
+                                fontSize="small"
+                              />
+                            </div>
+                          </div>
 
-        <div>
-          <List
-            component="nav"
-            aria-label="Device settings"
-            sx={{
-              // @ts-ignore
-              bgcolor: theme.palette.myColor.main,
-              borderBottomRightRadius: 22,
-              borderTopRightRadius: 22,
-              p: "0",
-            }}
-          >
-            <ListItem
-              id="lock-button"
-              aria-haspopup="listbox"
-              aria-controls="lock-menu"
-              aria-label="when device is locked"
-              aria-expanded={open ? "true" : undefined}
-              onClick={handleClickListItem}
-            >
-              <ListItemText
-                // className="border"
-                sx={{
-                  width: 93,
-                  textAlign: "center",
-                  "&:hover": { cursor: "pointer" },
-                }}
-                secondary={options[selectedIndex]}
-              />
-              <ExpandMore sx={{ fontSize: "16px" }} />
-            </ListItem>
-          </List>
-          <Menu
-            id="lock-menu"
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleClose}
-            MenuListProps={{
-              "aria-labelledby": "lock-button",
-              role: "listbox",
-            }}
-          >
-            {options.map((option, index) => (
-              <MenuItem
-                sx={{ fontSize: "13px" }}
-                key={option}
-                selected={index === selectedIndex}
-                onClick={(event) => handleMenuItemClick(event, index)}
-              >
-                {option}
-              </MenuItem>
-            ))}
-          </Menu>
+                          <p className="card-text ">{item.desc}</p>
+                          <div className="d-flex justify-content-between">
+                            <Rating
+                              precision={0.1}
+                              name="read-only"
+                              value={item.rating}
+                              readOnly
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
         </div>
-      </Search>
+      ) : (
+        ""
+      )}
+      <Container
+        className="header2"
+        sx={{ my: 3, display: "flex", justifyContent: "space-between" }}
+      >
+        <Stack className="icon1" alignItems={"center"}>
+          <ShoppingCartOutlined />
+          <Typography variant="body2">E-commerce</Typography>
+        </Stack>
 
-      <Stack className="icon3" direction={"row"} alignItems={"center"}>
-        <IconButton aria-label="cart">
-          <StyledBadge badgeContent={4} color="primary">
-            <ShoppingCartIcon />
-          </StyledBadge>
-        </IconButton>
+        <Search
+          className="icon2"
+          sx={{
+            display: "flex",
+            borderRadius: "22px",
+            justifyContent: "space-between",
+          }}
+        >
+          <SearchIconWrapper>
+            <SearchIcon />
+          </SearchIconWrapper>
+          <StyledInputBase
+            placeholder="Search…"
+            inputProps={{ "aria-label": "search" }}
+          />
 
-        <IconButton>
-          <Person2OutlinedIcon />
-        </IconButton>
-      </Stack>
-    </Container>
+          <div>
+            <List
+              component="nav"
+              aria-label="Device settings"
+              sx={{
+                // @ts-ignore
+                bgcolor: theme.palette.myColor.main,
+                borderBottomRightRadius: 22,
+                borderTopRightRadius: 22,
+                p: "0",
+              }}
+            >
+              <ListItem
+                id="lock-button"
+                aria-haspopup="listbox"
+                aria-controls="lock-menu"
+                aria-label="when device is locked"
+                aria-expanded={open ? "true" : undefined}
+                onClick={handleClickListItem}
+              >
+                <ListItemText
+                  // className="border"
+                  sx={{
+                    width: 93,
+                    textAlign: "center",
+                    "&:hover": { cursor: "pointer" },
+                  }}
+                  secondary={options[selectedIndex]}
+                />
+                <ExpandMore sx={{ fontSize: "16px" }} />
+              </ListItem>
+            </List>
+            <Menu
+              id="lock-menu"
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleClose}
+              MenuListProps={{
+                "aria-labelledby": "lock-button",
+                role: "listbox",
+              }}
+            >
+              {options.map((option, index) => (
+                <MenuItem
+                  sx={{ fontSize: "13px" }}
+                  key={option}
+                  selected={index === selectedIndex}
+                  onClick={(event) => handleMenuItemClick(event, index)}
+                >
+                  {option}
+                </MenuItem>
+              ))}
+            </Menu>
+          </div>
+        </Search>
+
+        <Stack className="icon3" direction={"row"} alignItems={"center"}>
+          <IconButton onClick={() => {favourites.length > 0?setFav(!fav) :""}} aria-label="cart">
+            <StyledBadge
+             
+              badgeContent={favourites.length}
+              color="primary"
+            >
+              <ShoppingCartIcon />
+            </StyledBadge>
+          </IconButton>
+
+          <IconButton>
+            <Person2OutlinedIcon />
+          </IconButton>
+        </Stack>
+      </Container>
+    </>
   );
 };
 

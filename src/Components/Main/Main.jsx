@@ -1,16 +1,16 @@
 import { useTheme } from "@emotion/react";
 import "./Main.css";
 // @ts-ignore
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   Box,
   Button,
   Dialog,
   // @ts-ignore
-  DialogActions,
   IconButton,
   Rating,
 } from "@mui/material";
+import FavoriteSharpIcon from "@mui/icons-material/FavoriteSharp";
 import AddShoppingCartOutlinedIcon from "@mui/icons-material/AddShoppingCartOutlined";
 import ProductDetails from "./ProductDetails";
 import { Close } from "@mui/icons-material";
@@ -48,9 +48,12 @@ import img53 from "../../img/5/100.jpg";
 import img6 from "../../img/6/1.jpg";
 // @ts-ignore
 import img62 from "../../img/6/2.jpg";
-const Main = () => {
+
+const Main = ({ addFavouritMovie ,favourites }) => {
   let AllProduce = [
     {
+      varia: false,
+      id: 1,
       img: [img1, img12],
       category: "Men",
       name: "Jacket",
@@ -59,6 +62,8 @@ const Main = () => {
       rating: 4,
     },
     {
+      varia: false,
+      id: 2,
       img: [img2, img22, img23],
       category: "Men",
       name: "Glasses",
@@ -67,6 +72,8 @@ const Main = () => {
       rating: 3,
     },
     {
+      varia: false,
+      id: 3,
       img: [img3, img32, img33, img34],
       category: "Women",
       name: "Bag",
@@ -75,6 +82,8 @@ const Main = () => {
       rating: 2,
     },
     {
+      varia: false,
+      id: 4,
       img: [img43, img42, img4],
       category: "Men",
       name: "Wristwatch",
@@ -83,6 +92,8 @@ const Main = () => {
       rating: 4,
     },
     {
+      varia: false,
+      id: 5,
       img: [img5, img52, img53],
       category: "Men",
       name: "JacketMen",
@@ -91,6 +102,8 @@ const Main = () => {
       rating: 5,
     },
     {
+      varia: false,
+      id: 6,
       img: [img6, img62],
       category: "Women",
       name: "RingWoman",
@@ -124,6 +137,12 @@ const Main = () => {
   const handleClose = () => {
     setOpen(false);
   };
+
+  // favourit
+  const [isRed, setIsRed] = useState(false);
+
+  // const heartColor = isRed ? "red" : "white";
+
   return (
     <div className="row">
       <div className="col-md-6 main-text">
@@ -183,11 +202,32 @@ const Main = () => {
                 <div style={{ overflow: "hidden" }}>
                   <img src={item.img[0]} className="card-img-top" alt="..." />
                 </div>
-                <div className="card-body">
-                  <div className="d-flex justify-content-between">
-                    <h5 className="card-title">{item.name}</h5>
-                    <p>{item.price}$</p>
+                <div className="card-body ">
+                  <div className="d-flex justify-content-between mb-2">
+                    <div className="d-flex  align-items-center">
+                      <h5 className="card-title  me-4">{item.name}</h5>
+                      <p className="card-title p-0">{item.price}$</p>
+                    </div>
+
+                    <div
+                      onClick={() => {
+                        addFavouritMovie(item);
+                      }}
+                    >
+                      <div
+                        style={{
+                          color: favourites.find((fav) => fav.id === item.id)  ? "red" : "white",
+                          border: "none",
+
+                          cursor: "pointer",
+                        }}
+                        onClick={() =>{ ()=> favourites.find((fav) => fav.id === item.id)  ?setIsRed(!isRed):""}}
+                      >
+                        <FavoriteSharpIcon />
+                      </div>
+                    </div>
                   </div>
+
                   <p className="card-text ">{item.desc}</p>
                   <div className="d-flex justify-content-between">
                     <Box
@@ -255,7 +295,6 @@ const Main = () => {
         <ProductDetails
           // @ts-ignore
           produces={produces}
-          img={img}
         />
       </Dialog>
     </div>

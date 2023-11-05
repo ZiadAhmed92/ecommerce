@@ -2,12 +2,10 @@
 /* eslint-disable react/no-unescaped-entities */
 import { AddShoppingCartOutlined } from "@mui/icons-material";
 import { Box, Button, Stack, Typography } from "@mui/material";
-import ToggleButton from "@mui/material/ToggleButton";
-import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import { useState } from "react";
 
 
-const ProductDetails = ({img, produces}) => {
+const ProductDetails = ({ produces}) => {
   const[imgSmall , setImgSmall] = useState(produces.img[0] )
 
   return (
@@ -32,12 +30,14 @@ const ProductDetails = ({img, produces}) => {
       </Box>
 
       <Box  className="produceDetails" sx={{ py: 2, textAlign: { xs: "center", sm: "left" } }}>
-        <Typography variant="h5">
+       <div className="produce-mobile">
+       <Typography variant="h5">
           {produces.category}
         </Typography>
         <Typography my={0.4} fontSize={"22px"} color={"crimson"} variant="h6">
         {produces.price}$
         </Typography>
+       </div>
         <Typography variant="body1">
           
           {produces.desc}
@@ -57,7 +57,7 @@ const ProductDetails = ({img, produces}) => {
                   <img
                   key={index}
                   onClick={()=>setImgSmall(item)}
-                  className="card-img-top-product-detials"
+                  className={`${item === imgSmall?" opacity-1":" opacity "}   card-img-top-product-detials`}
                     style={{ borderRadius: 3 }}
                     height={100}
                     width={90}

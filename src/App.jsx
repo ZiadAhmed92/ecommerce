@@ -17,6 +17,28 @@ function App() {
   window.onscroll = function () {
     setScroll(scrollY);
   };
+  //favourit 
+  const [favourites, setFavourites] = useState([]);
+  function addFavouritMovie(movie) {
+    if (favourites.find((fav) => fav.id === movie.id) == null) {
+      setFavourites([...favourites, movie]);
+      
+      
+    } else {
+      // window.alert("Already Added");
+      removeFavouritMovie(movie)
+    }
+  }
+  function removeFavouritMovie(movie) {
+    let newFavourit = favourites.filter(
+      (moviedelete) => movie.id !== moviedelete.id
+    );
+    setFavourites(newFavourit);
+    //  window.alert("Are You Sure To Remove This Movie From Favourites ?")
+  }
+  // main 
+  const [produces, setProducs] = useState();
+  
   return (
     <ColorModeContext.Provider
       // @ts-ignore
@@ -29,7 +51,7 @@ function App() {
         <CssBaseline />
 
         <Header1 />
-        <Header2 />
+        <Header2 favourites={favourites} removeFavouritMovie={removeFavouritMovie}/>
         <Header3 />
         <Box
           sx={{ pb: 1 }}
@@ -41,7 +63,7 @@ function App() {
           <Hero />
          <div className="container  p-0">
          
-            <Main />
+            <Main favourites={favourites} addFavouritMovie={addFavouritMovie} />
           
          </div>
            
