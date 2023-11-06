@@ -124,23 +124,27 @@ const Header2 = ({ favourites, removeFavouritMovie }) => {
         anchor={"top"}
         open={state["top"]}
         onClose={toggleDrawer("top", false)}
-        sx={{
+        sx={{ ".MuiPaper-root.css-1sozasi-MuiPaper-root-MuiDrawer-paper": {
+          height: "100%",
+        },
           ".MuiBox-root.css-entiip": {
             height: "100%",
             width:"100%",
+          
+
              position: "relative"
           },
         }}
       >
         <Box
-          sx={{ width:"100%", pt: 10 }}
+          sx={{ width:"100%",height:"100%" }}
         >
           <IconButton
             sx={{
               ":hover": { color: "red", rotate: "180deg", transition: "0.3s" },
               position: "absolute",
-              top: 50,
-              right: 50,
+              top: 10,
+              right: 10,
             }}
             onClick={toggleDrawer("top", false)}
           >
@@ -150,7 +154,7 @@ const Header2 = ({ favourites, removeFavouritMovie }) => {
         <div>
           {" "}
       
-          <div className="container  ">
+          <div className="container ">
             <div className="row">
               {favourites.map((item, i) => {
                 return (
