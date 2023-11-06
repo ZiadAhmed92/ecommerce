@@ -10,6 +10,7 @@ import {
   Stack,
   Typography,
   useTheme,
+  Drawer,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { styled } from "@mui/material/styles";
@@ -98,28 +99,58 @@ const Header2 = ({ favourites, removeFavouritMovie }) => {
   // @ts-ignore
 
   const [fav, setFav] = useState(false);
+  const [state, setState] = useState({
+    top: false,
+    left: false,
+    bottom: false,
+    right: false,
+  });
 
+  const toggleDrawer = (anchor, open) => (event) => {
+    if (
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
+      return;
+    }
+
+    setState({ ...state, [anchor]: open });
+  };
   return (
     <>
-      {fav && favourites.length !==0 ? (
-        <div className="favourit ">
-          {" "}
-         
-          <IconButton
-          sx={{
-            ":hover": { color: "red", rotate: "180deg", transition: "0.3s" },
-            position: "absolute",
-            
-            color:"#EEE",
-            top: 10,
-            right: 10,
-          }}
-          onClick={()=>setFav(!fav)}
+     
+      {/* drawer */}
+      {favourites.length !==0 ? ( <Drawer
+        anchor={"top"}
+        open={state["top"]}
+        onClose={toggleDrawer("top", false)}
+        sx={{
+          ".MuiBox-root.css-entiip": {
+            height: "100%",
+            width:"100%",
+             position: "relative"
+          },
+        }}
+      >
+        <Box
+          sx={{ width:"100%", mx: "auto", pt: 10 }}
         >
-          <Close />
-        </IconButton>
+          <IconButton
+            sx={{
+              ":hover": { color: "red", rotate: "180deg", transition: "0.3s" },
+              position: "absolute",
+              top: 50,
+              right: 50,
+            }}
+            onClick={toggleDrawer("top", false)}
+          >
+            <Close />
+          </IconButton>
+         
+        <div>
+          {" "}
       
-          <div className="container">
+          <div className="container  ">
             <div className="row">
               {favourites.map((item, i) => {
                 return (
@@ -176,9 +207,12 @@ const Header2 = ({ favourites, removeFavouritMovie }) => {
             </div>
           </div>
         </div>
-      ) : (
-        ""
-      )}
+      
+         
+        </Box>
+      </Drawer>):""}
+     
+
       <Container
         className="header2"
         sx={{ my: 3, display: "flex", justifyContent: "space-between" }}
@@ -261,9 +295,9 @@ const Header2 = ({ favourites, removeFavouritMovie }) => {
         </Search>
 
         <Stack className="icon3" direction={"row"} alignItems={"center"}>
-          <IconButton onClick={() => {favourites.length > 0?setFav(!fav) :""}} aria-label="cart">
+          <IconButton  aria-label="cart">
             <StyledBadge
-             
+             onClick={toggleDrawer("top", true)}
               badgeContent={favourites.length}
               color="primary"
             >

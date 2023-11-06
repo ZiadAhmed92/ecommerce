@@ -216,7 +216,7 @@ const Main = ({ addFavouritMovie ,favourites }) => {
                     >
                       <div
                         style={{
-                          color: favourites.find((fav) => fav.id === item.id)  ? "red" : "white",
+                          color: favourites.find((fav) => fav.id === item.id)  ? "red" :theme.palette.mode === "dark"?"white":"rgb(190, 143, 81)",
                           border: "none",
 
                           cursor: "pointer",
