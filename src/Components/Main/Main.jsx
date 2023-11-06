@@ -188,7 +188,7 @@ const Main = ({ addFavouritMovie ,favourites }) => {
       </div>
       {produce.map((item, i) => {
         return (
-          <div key={i} className="col-md-4 main-content ">
+          <div key={i} className=" ps-4 col-md-4 main-content ">
             <div>
               <div
                 className="card"

@@ -133,7 +133,7 @@ const Header2 = ({ favourites, removeFavouritMovie }) => {
         }}
       >
         <Box
-          sx={{ width:"100%", mx: "auto", pt: 10 }}
+          sx={{ width:"100%", pt: 10 }}
         >
           <IconButton
             sx={{
