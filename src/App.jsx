@@ -38,7 +38,13 @@ function App() {
   }
   // main 
   const [produces, setProducs] = useState();
-  
+  const [open, setOpen] = useState(false);
+
+ 
+
+  const handleClose = () => {
+    setOpen(false);
+  };
   return (
     <ColorModeContext.Provider
       // @ts-ignore
@@ -51,7 +57,7 @@ function App() {
         <CssBaseline />
 
         <Header1 />
-        <Header2 favourites={favourites} removeFavouritMovie={removeFavouritMovie}/>
+        <Header2 open1={open} handleClose1={handleClose} setOpen={setOpen} favourites={favourites} produces={produces} setProducs={setProducs}  removeFavouritMovie={removeFavouritMovie}/>
         <Header3 />
         <Box
           sx={{ pb: 1 }}
@@ -63,7 +69,7 @@ function App() {
           <Hero />
          <div className="container  p-0">
          
-            <Main favourites={favourites} addFavouritMovie={addFavouritMovie} />
+            <Main open={open} handleClose={handleClose} setOpen={setOpen} favourites={favourites} addFavouritMovie={addFavouritMovie} produces={produces} setProducs={setProducs} />
           
          </div>
            

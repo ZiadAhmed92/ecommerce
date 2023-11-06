@@ -3,7 +3,13 @@ import "./Main.css";
 // @ts-ignore
 import { useState } from "react";
 import {
+  // @ts-ignore
+  // @ts-ignore
+  // @ts-ignore
   Box,
+  // @ts-ignore
+  // @ts-ignore
+  // @ts-ignore
   Button,
   Dialog,
   // @ts-ignore
@@ -11,7 +17,7 @@ import {
   Rating,
 } from "@mui/material";
 import FavoriteSharpIcon from "@mui/icons-material/FavoriteSharp";
-import AddShoppingCartOutlinedIcon from "@mui/icons-material/AddShoppingCartOutlined";
+
 import ProductDetails from "./ProductDetails";
 import { Close } from "@mui/icons-material";
 // @ts-ignore
@@ -48,30 +54,49 @@ import img53 from "../../img/5/100.jpg";
 import img6 from "../../img/6/1.jpg";
 // @ts-ignore
 import img62 from "../../img/6/2.jpg";
+// @ts-ignore
+// @ts-ignore
+import img7 from "../../img/7/1.jpg";
+// @ts-ignore
+import img72 from "../../img/7/2.jpg";
+// @ts-ignore
+import img73 from "../../img/7/3.jpg";
+// @ts-ignore
+import img8 from "../../img/8/1.jpg";
+// @ts-ignore
+import img82 from "../../img/8/2.jpg";
+// @ts-ignore
+import img83 from "../../img/8/3.jpg";
+// @ts-ignore
+import img9 from "../../img/9/1.jpg";
+// @ts-ignore
+import img92 from "../../img/9/2.jpg";
+// @ts-ignore
+import img93 from "../../img/9/3.jpg";
+import ShowMoreDetails from "./ShowMoreDetails";
 
-const Main = ({ addFavouritMovie ,favourites }) => {
+const Main = ({ addFavouritMovie,handleClose,setOpen,open,produces,setProducs ,favourites }) => {
   let AllProduce = [
     {
       varia: false,
       id: 1,
+      img: [img7, img72,img73],
+      category: "Men",
+      name: "Al-Ahly T-shirt",
+      price: "12",
+      desc: "A unisex polo shirt bearing the official Al-Ahly club logo without stars",
+      rating: 5,
+    },
+    {
+      varia: false,
+      id: 2,
       img: [img1, img12],
       category: "Men",
       name: "Jacket",
       price: "29",
       desc: "2022 High Quality Custom Design Men Jacket Winter Fleece Jackets Warm Thicken Outerwear Men's Jackets",
       rating: 4,
-    },
-    {
-      varia: false,
-      id: 2,
-      img: [img2, img22, img23],
-      category: "Men",
-      name: "Glasses",
-      price: "12",
-      desc: "Ready Stock Goods Ergonomic Design Fashion Metal Cheap Wholesale Sunglasses Women Men Sun Glasses",
-      rating: 3,
-    },
-    {
+    },{
       varia: false,
       id: 3,
       img: [img3, img32, img33, img34],
@@ -84,6 +109,28 @@ const Main = ({ addFavouritMovie ,favourites }) => {
     {
       varia: false,
       id: 4,
+      img: [img2, img22, img23],
+      category: "Men",
+      name: "Glasses",
+      price: "12",
+      desc: "Ready Stock Goods Ergonomic Design Fashion Metal Cheap Wholesale Sunglasses Women Men Sun Glasses",
+      rating: 3,
+    },
+    ,
+    {
+      varia: false,
+      id: 5,
+      img: [img8, img82, img83],
+      category: "Men",
+      name: "Zamalek T-shirt",
+      price: "8",
+      desc: "Unisex Zamalek T-shirt from Tempo for home matches, made of jersey fabric, number 22/23 - Fans Edition",
+      rating: 4,
+    },
+    
+    {
+      varia: false,
+      id: 6,
       img: [img43, img42, img4],
       category: "Men",
       name: "Wristwatch",
@@ -93,7 +140,7 @@ const Main = ({ addFavouritMovie ,favourites }) => {
     },
     {
       varia: false,
-      id: 5,
+      id: 7,
       img: [img5, img52, img53],
       category: "Men",
       name: "JacketMen",
@@ -103,7 +150,7 @@ const Main = ({ addFavouritMovie ,favourites }) => {
     },
     {
       varia: false,
-      id: 6,
+      id: 8,
       img: [img6, img62],
       category: "Women",
       name: "RingWoman",
@@ -111,8 +158,18 @@ const Main = ({ addFavouritMovie ,favourites }) => {
       desc: "Goldstones New Arrival S925 Jewelry Rings Fancy Cut D VVS Moissanite Ring Eternity Band Rings",
       rating: 5,
     },
+    {
+      varia: false,
+      id: 9,
+      img: [img9, img92,img93],
+      category: "Women",
+      name: "Dress",
+      price: "22",
+      desc: "Women's midi shirt dress from American Eagle",
+      rating: 4,
+    }
   ];
-  // @ts-ignore
+
   const [produce, setProduce] = useState(AllProduce);
   function filterProduce(cate) {
     let prt = AllProduce.filter((item) => item.category === cate);
@@ -122,21 +179,13 @@ const Main = ({ addFavouritMovie ,favourites }) => {
   // useEffect(()=>{
   //   filterProduce(category)
   // },[])
-  const [produces, setProducs] = useState();
+ 
   // @ts-ignore
 
   let theme = useTheme();
   const [active, setActive] = useState("All");
-  const [img, setImg] = useState([]);
-  const [open, setOpen] = useState(false);
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
+ 
 
   // favourit
   const [isRed, setIsRed] = useState(false);
@@ -230,33 +279,7 @@ const Main = ({ addFavouritMovie ,favourites }) => {
 
                   <p className="card-text ">{item.desc}</p>
                   <div className="d-flex justify-content-between">
-                    <Box
-                      sx={{
-                        ":hover": { color: "blue", cursor: "pointer" },
-                        transition: "0.2s",
-                        alignItems: "center",
-                      }}
-                    >
-                      <div
-                        onClick={() => {
-                          setImg(item.img);
-                          // @ts-ignore
-                          setProducs(item);
-                        }}
-                      >
-                        <Button
-                          sx={{ fontSize: "0.6em" }}
-                          variant="outlined"
-                          onClick={handleClickOpen}
-                        >
-                          <AddShoppingCartOutlinedIcon
-                            sx={{ mr: 1 }}
-                            fontSize="small"
-                          />{" "}
-                          Add To Cart
-                        </Button>
-                      </div>
-                    </Box>
+                   <ShowMoreDetails setProducs={setProducs} produces={produces} handleClose={handleClose} item={item} setOpen={setOpen} open={open}/>
                     <Rating
                       precision={0.1}
                       name="read-only"

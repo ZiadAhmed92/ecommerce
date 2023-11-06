@@ -1,7 +1,6 @@
 import { Close, ExpandMore, ShoppingCartOutlined } from "@mui/icons-material";
 import {
   Badge,
-  Button,
   Box,
   Container,
   IconButton,
@@ -22,8 +21,9 @@ import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
-import AddShoppingCartOutlinedIcon from "@mui/icons-material/AddShoppingCartOutlined";
+
 import DeleteSharpIcon from '@mui/icons-material/DeleteSharp';
+import ShowMoreDetails from "../Main/ShowMoreDetails";
 const Search = styled("div")(({ theme }) => ({
   flexGrow: 0.4,
   position: "relative",
@@ -77,7 +77,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 
 const options = ["All Categories", "CAR", "Clothes", "Electronics"];
 
-const Header2 = ({ favourites, removeFavouritMovie }) => {
+const Header2 = ({ favourites, removeFavouritMovie ,setOpen,setProducs,produces,open1,handleClose1 }) => {
   // ------------------Menu-------------------------
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -98,7 +98,7 @@ const Header2 = ({ favourites, removeFavouritMovie }) => {
   const theme = useTheme();
   // @ts-ignore
 
-  const [fav, setFav] = useState(false);
+
   const [state, setState] = useState({
     top: false,
     left: false,
@@ -195,12 +195,15 @@ const Header2 = ({ favourites, removeFavouritMovie }) => {
 
                           <p className="card-text ">{item.desc}</p>
                           <div className="d-flex justify-content-between">
+                          <ShowMoreDetails setProducs={setProducs} produces={produces} handleClose={handleClose1} item={item} setOpen={setOpen} open={open1}/>
+
                             <Rating
                               precision={0.1}
                               name="read-only"
                               value={item.rating}
                               readOnly
                             />
+                            
                           </div>
                         </div>
                       </div>
