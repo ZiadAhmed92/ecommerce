@@ -14,7 +14,7 @@ import {
 import SearchIcon from "@mui/icons-material/Search";
 import { styled } from "@mui/material/styles";
 import Person2OutlinedIcon from "@mui/icons-material/Person2Outlined";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import FavoriteSharpIcon from "@mui/icons-material/FavoriteSharp";
 import { useState } from "react";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -308,7 +308,8 @@ const Header2 = ({ favourites, removeFavouritMovie ,setOpen,setProducs,produces,
               badgeContent={favourites.length}
               color="primary"
             >
-              <ShoppingCartIcon />
+              {/* <ShoppingCartIcon /> */}
+              <FavoriteSharpIcon className="text-danger" />
             </StyledBadge>
           </IconButton>
 
